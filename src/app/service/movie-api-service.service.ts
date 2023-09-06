@@ -19,7 +19,20 @@ export class MovieApiServiceService {
 
   //PopularesApi
   popularApiData():Observable<any> {
-    return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}`);
+    return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=2`);
+  }
+
+  //playing now
+  nowPlayingApiData():Observable<any> {
+    return this.http.get(`${this.baseurl}/movie/now_playing?api_key=${this.apikey}`);
+  }
+  //playing now
+  topRateApiData():Observable<any> {
+    return this.http.get(`${this.baseurl}/movie/top_rated?api_key=${this.apikey}`);
+  }
+  //search
+  getSearchMovie(data:any):Observable<any> {
+    return this.http.get(`${this.baseurl}/search/movie?api_key=${this.apikey}&query=${data.movieName}`);
   }
 
 }

@@ -8,7 +8,7 @@
             >
                 <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h2>{{b.original_title || b.name}}</h2>
+                    <h1>{{b.original_title || b.name}}</h1>
                     <h5>{{b.overview}}</h5>
                 </div>
             </div>
@@ -25,9 +25,10 @@
 </div>
 <!-- banner end -->
 
+<!-- popular movie start -->
 <div class="contain mt-3 p-4">
     <div class="row">
-        <h5 class="text-white">Filmes Populares</h5>
+        <h5 class="text-white">Mais Populares no MovieFlix</h5>
         <div class="rowposter mt-3 p-2">
             <ng-container *ngFor="let p of popularResult">    
                 <img
@@ -38,3 +39,36 @@
         </div>
     </div>
 </div>
+<!-- popular movie end -->
+
+<!-- popular movie start -->
+<div class="contain mt-3 p-4">
+    <div class="row">
+        <h5 class="text-white">Filmes em Cartaz</h5>
+        <div class="rowposter mt-3 p-2">
+            <ng-container *ngFor="let n of nowPlayingResult">    
+                <img
+                src="https://image.tmdb.org/t/p/original/{{ n.poster_path }}"
+                class="rowimg largposter" 
+                alt="...">
+            </ng-container>
+        </div>
+    </div>
+</div>
+<!-- popular movie end -->
+
+<!-- topRate movie start -->
+<div class="contain mt-3 p-4">
+    <div class="row">
+        <h5 class="text-white">Bem Avaliados</h5>
+        <div class="rowposter mt-3 p-2">
+            <ng-container *ngFor="let t of topRateResult">    
+                <img
+                src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}"
+                class="rowimg largposter" 
+                alt="...">
+            </ng-container>
+        </div>
+    </div>
+</div>
+<!-- topRate movie end -->

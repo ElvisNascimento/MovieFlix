@@ -1,11 +1,15 @@
+nav{
+    background-color: rgba(0, 0, 0, 0.5);
+}
 .navbar .navbar-brand {
-    color: #dc3545;
+    color: #cb0d20;
     font-weight: bold;
+    font-family: 'Anton', sans-serif;
 }
 .navbar-nav .navbar-item .nav-link {
-    color: #dc3545;
+    color: #cb0d20;
 }
 .navbar-toggler-icon {
-    background-color: #dc3545;
+    background-color: #cb0d20;
     border-radius: 7px;
 }

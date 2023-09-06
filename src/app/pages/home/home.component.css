@@ -7,9 +7,11 @@
     object-fit: cover;
 }
 
-.carousel-caption h2 {
-    color: #dc3545;
+.carousel-caption h1 {
+    color: #cb0d20;
     font-weight: bold;
+    font-family: 'Anton', sans-serif;
+    -webkit-text-stroke: .05px rgb(30, 7, 7);
     background-color: rgba(0, 0, 0, 0.5);
 }
 
