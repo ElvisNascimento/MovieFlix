@@ -12,12 +12,14 @@ export class HomeComponent implements OnInit {
 
   bannerResult: any = [];
   popularResult: any = [];
+  popularResult2: any = [];
   nowPlayingResult: any = [];
   topRateResult: any = [];
 
   ngOnInit(): void {
     this.bannerData();
     this.popularData();
+    this.popularData2();
     this.nowPlayingData();
     this.topRateData();
   }
@@ -34,6 +36,13 @@ export class HomeComponent implements OnInit {
     this.service.popularApiData().subscribe((result) => {
       console.log(result, 'popularresult#');
       this.popularResult = result.results;
+    });
+  }
+   //populares
+   popularData2() {
+    this.service.popularApiData2().subscribe((result) => {
+      console.log(result, 'popularresult#');
+      this.popularResult2 = result.results;
     });
   }
   //now playing

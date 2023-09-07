@@ -1,9 +1,9 @@
 <div class="contain mt-5">
     <div class="row p-5" >
-        <div class="col-lg-2" *ngIf="getMovieDetalResult.backdrop_path || getMovieDetalResult.poster_path">
+        <div class="col-xl-5 col-sm-10" *ngIf="getMovieDetalResult.backdrop_path || getMovieDetalResult.poster_path">
             <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetalResult.backdrop_path || getMovieDetalResult.poster_path}}" alt="">
         </div>
-        <div class="col-lg-10 mt-5">
+        <div class="col-xl-5 col-sm-10">
             <h1 class="mt-2 mb-2">{{getMovieDetalResult.original_title || getMovieDetalResult.title}}</h1>
             <p class="mt-3 mb-3">Resume:{{getMovieDetalResult.overview}}</p>
             <p class="mt-3 mb-3">Gener:</p>

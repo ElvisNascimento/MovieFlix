@@ -19,6 +19,10 @@ export class MovieApiServiceService {
 
   //PopularesApi
   popularApiData():Observable<any> {
+    return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=1`);
+  }
+  //PopularesApi
+  popularApiData2():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=2`);
   }
 
