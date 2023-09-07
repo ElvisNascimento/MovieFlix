@@ -6,7 +6,11 @@
             *ngFor="let b of bannerResult;let i=index"
             [ngClass]="{active:i===1}"
             >
-                <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" class="d-block w-100" alt="...">
+                <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" 
+                class="d-block w-100" alt="..."
+                [routerLink]="['/movie', b.id]"
+                >
+
                 <div class="carousel-caption d-none d-md-block">
                     <h1>{{b.original_title || b.name}}</h1>
                     <h5>{{b.overview}}</h5>
@@ -34,7 +38,10 @@
                 <img
                 src="https://image.tmdb.org/t/p/original/{{ p.poster_path }}"
                 class="rowimg largposter" 
-                alt="...">
+                alt="..."
+                [routerLink]="['/movie', p.id]"
+                >
+
             </ng-container>
         </div>
     </div>
@@ -50,7 +57,9 @@
                 <img
                 src="https://image.tmdb.org/t/p/original/{{ n.poster_path }}"
                 class="rowimg largposter" 
-                alt="...">
+                alt="..."
+                [routerLink]="['/movie', n.id]"
+                >
             </ng-container>
         </div>
     </div>
@@ -66,7 +75,9 @@
                 <img
                 src="https://image.tmdb.org/t/p/original/{{ t.poster_path }}"
                 class="rowimg largposter" 
-                alt="...">
+                alt="..."
+                [routerLink]="['/movie', t.id]"
+                >
             </ng-container>
         </div>
     </div>

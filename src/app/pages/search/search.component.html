@@ -15,7 +15,7 @@
             <div class="col-lg-3 mt-4 mb-4" *ngIf="s.poster_path">
                 <img
                 src="https://image.tmdb.org/t/p/original/{{ s.poster_path || s.backdrop_path}}" alt=""
-                routerLink="detail">
+                [routerLink]="['/movie', s.id]">
             </div>
             <div class="col-lg-6 mt-4 mb-4">
                 <h5>{{s.original_title || s.title}}</h5>
