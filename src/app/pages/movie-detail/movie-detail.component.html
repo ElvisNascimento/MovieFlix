@@ -1,5 +1,7 @@
 <div class="contain mt-5">
+    
     <div class="row p-5">
+        <button class="btn btn-primary" (click)="navigateBack()">Voltar para Pesquisa</button>
         <div class="col-xl-5 col-sm-5" *ngIf="getMovieDetailResult.backdrop_path || getMovieDetailResult.poster_path">
             <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path}}" alt="">
         </div>
@@ -8,6 +10,10 @@
             <p class="mt-3 mb-3">Resume:{{getMovieDetailResult.overview}}</p>
 
             <button class="btn btn-danger" (click)="abrirVideo()">Assistir Trailer</button>
+
+            <div class="alert alert-info" *ngIf="!getMovieTrailerResult">
+                Não há vídeo disponível no momento.
+              </div>
             
         </div>
         <div class="col-xl-12 col-md-12">
@@ -39,7 +45,6 @@
                 </p>
             </div>
             <!-- producers end -->
-
         </div>
 
     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MovieApiServiceService } from 'src/app/service/movie-api-service.service'; 
 import { Trailer } from 'src/app/pages/movie-detail/trailer.interface';
 
@@ -9,7 +9,7 @@ import { Trailer } from 'src/app/pages/movie-detail/trailer.interface';
   styleUrls: ['./movie-detail.component.css']
 })
 export class MovieDetailComponent implements OnInit {
-  constructor(private service: MovieApiServiceService, private router: ActivatedRoute) { }
+  constructor(private service: MovieApiServiceService, private router: ActivatedRoute,private routerService: Router) { }
 
   getMovieDetailResult: any;
 
@@ -28,6 +28,10 @@ export class MovieDetailComponent implements OnInit {
     this.getCast(getMovieId);
 
     this.getVideo(getMovieId);
+  }
+  
+  navigateBack() {
+    this.routerService.navigate(['/search']);
   }
 
   getMovie(id: any) {
@@ -49,9 +53,12 @@ export class MovieDetailComponent implements OnInit {
           this.getMovieTrailerResult = `https://www.youtube.com/embed/${trailerOficial.key}`;
         } else {
           // Se não houver trailer oficial, usamos o primeiro da lista
-          const videoKey = result.results[0].key;
+          const videoKey = result.results[1].key;
           this.getMovieTrailerResult = `https://www.youtube.com/embed/${videoKey}`;
         }
+      } else {
+        // Não há vídeo disponível
+        this.getMovieTrailerResult = null;
       }
     });
   }
@@ -69,4 +76,5 @@ export class MovieDetailComponent implements OnInit {
       this.getMovieCastResult = result;
     });
   }
+
 }
