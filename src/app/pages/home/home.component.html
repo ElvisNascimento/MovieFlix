@@ -1,34 +1,4 @@
-<!-- banner start -->
-<div class="contain-fluid">
-    <div id="carouselExampleFade" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="carousel-item active" 
-            *ngFor="let b of bannerResult;let i=index"
-            [ngClass]="{active:i===1}"
-            >
-                <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" 
-                class="d-block w-100" alt="..."
-                [routerLink]="['/movie', b.id]"
-                >
-
-                <div class="carousel-caption d-none d-md-block">
-                    <h1>{{b.original_title || b.name}}</h1>
-                    <h5>{{b.overview}}</h5>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-    </div>
-</div>
-<!-- banner end -->
-
+<app-banner></app-banner>
 <!-- popular movie start -->
 <div class="contain mt-3 p-4">
     <div class="row">
@@ -51,14 +21,14 @@
 <!-- popular movie start -->
 <div class="contain mt-3 p-4">
     <div class="row">
-        <h5 class="text-white">Mais Populares no MovieFlix</h5>
+        <h5 class="text-white">Em breve</h5>
         <div class="rowposter mt-3 p-2">
-            <ng-container *ngFor="let p of popularResult2">    
+            <ng-container *ngFor="let e of emBreve">    
                 <img
-                src="https://image.tmdb.org/t/p/original/{{ p.poster_path }}"
+                src="https://image.tmdb.org/t/p/original/{{ e.poster_path }}"
                 class="rowimg largposter" 
                 alt="..."
-                [routerLink]="['/movie', p.id]"
+                [routerLink]="['/movie', e.id]"
                 >
 
             </ng-container>

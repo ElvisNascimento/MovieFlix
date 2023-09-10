@@ -1,0 +1,30 @@
+<!-- banner start -->
+<div class="contain-fluid">
+    <div id="carouselExampleFade" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active" 
+            *ngFor="let b of bannerResult;let i=index"
+            [ngClass]="{active:i===1}"
+            >
+                <img src="https://image.tmdb.org/t/p/original/{{ b.backdrop_path }}" 
+                class="d-block w-100" alt="..."
+                [routerLink]="['/movie', b.id]"
+                >
+
+                <div class="carousel-caption  d-md-block">
+                    <h1>{{b.original_title || b.name}}</h1>
+                    <h5>{{b.overview}}</h5>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+    </div>
+</div>
+<!-- banner end -->

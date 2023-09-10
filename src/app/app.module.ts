@@ -10,6 +10,7 @@ import { MovieDetailComponent } from './pages/movie-detail/movie-detail.componen
 import { HttpClientModule } from '@angular/common/http';
 import { MovieApiServiceService } from './service/movie-api-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BannerComponent } from './banner/banner.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     SearchComponent,
     MovieDetailComponent,
+    BannerComponent
   ],
   imports: [
     BrowserModule,

@@ -21,9 +21,9 @@ export class MovieApiServiceService {
   popularApiData():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=1`);
   }
-  //PopularesApi
+  //ProximasEstreiasApi
   popularApiData2():Observable<any> {
-    return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=2`);
+    return this.http.get(`${this.baseurl}/movie/upcoming?api_key=${this.apikey}&page=1`);
   }
 
   //playing now
@@ -34,13 +34,23 @@ export class MovieApiServiceService {
   topRateApiData():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/top_rated?api_key=${this.apikey}`);
   }
+  //movieDetail
+  getMovieDetail(data:any):Observable<any>{
+    return this.http.get(`${this.baseurl}/movie/${data}?api_key=${this.apikey}`);
+  }
+
   //search
   getSearchMovie(data:any):Observable<any> {
     return this.http.get(`${this.baseurl}/search/movie?api_key=${this.apikey}&query=${data.movieName}`);
   }
 
-  //movieDetail
-  getMovieDetail(data:any):Observable<any>{
-    return this.http.get(`${this.baseurl}/movie/${data}?api_key=${this.apikey}`);
+  //getCast
+  getMovieCast(data:any):Observable<any>{
+    return this.http.get(`${this.baseurl}/movie/${data}/credits?api_key=${this.apikey}`);
+  }
+
+  //getTrailer
+  getMovieTrailer(data:any):Observable<any>{
+    return this.http.get(`${this.baseurl}/movie/${data}/videos?api_key=${this.apikey}`);
   }
 }

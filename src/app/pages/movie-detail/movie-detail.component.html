@@ -1,19 +1,46 @@
 <div class="contain mt-5">
-    <div class="row p-5" >
-        <div class="col-xl-5 col-sm-10" *ngIf="getMovieDetalResult.backdrop_path || getMovieDetalResult.poster_path">
-            <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetalResult.backdrop_path || getMovieDetalResult.poster_path}}" alt="">
+    <div class="row p-5">
+        <div class="col-xl-5 col-sm-5" *ngIf="getMovieDetailResult.backdrop_path || getMovieDetailResult.poster_path">
+            <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path}}" alt="">
         </div>
-        <div class="col-xl-5 col-sm-10">
-            <h1 class="mt-2 mb-2">{{getMovieDetalResult.original_title || getMovieDetalResult.title}}</h1>
-            <p class="mt-3 mb-3">Resume:{{getMovieDetalResult.overview}}</p>
-            <p class="mt-3 mb-3">Gener:</p>
-                <div *ngFor="let genre of getMovieDetalResult.genres; let last = last">
-                    {{ genre.name }}{{ !last ? ',' : '' }}
-                </div>
-            <p class="mt-3 mb-3">Prodution:</p>
-                <div *ngFor="let pc of getMovieDetalResult.production_companies; let last = last">
-                    {{ pc.name }}{{ !last ? ',' : '' }}
-                </div>
+        <div class="col-xl-5 col-sm-5">
+            <h1 class="mt-2 mb-2">{{getMovieDetailResult.original_title || getMovieDetailResult.title}}</h1>
+            <p class="mt-3 mb-3">Resume:{{getMovieDetailResult.overview}}</p>
+
+            <button class="btn btn-danger" (click)="abrirVideo()">Assistir Trailer</button>
+            
         </div>
+        <div class="col-xl-12 col-md-12">
+            <!-- Home Page start -->
+            <h4 class="mt-3 mb-3">Home Page:</h4>
+            <div class="d-sm-flex ">
+                <a href="{{getMovieDetailResult.homepage}}">{{getMovieDetailResult.homepage}}</a>
+            </div>
+            <!-- Home Page end -->
+            <!-- Gener start -->
+            <h4 class="mt-3 mb-3">Gener:</h4>
+            <div class="d-flex d-sm-flex">
+                <p *ngFor="let genre of getMovieDetailResult.genres;
+                     let last = last">
+                    {{ genre.name }}
+                    {{ !last ? ',' : '' }}
+                </p>
+            </div>
+            <!-- Gener end -->
+            <hr>
+            <!-- producers start -->
+            <h4 class="mt-3 mb-3">Producers:</h4>
+            <div class="d-sm-flex ">
+                <div></div>
+                <p *ngFor="let pc of getMovieDetailResult.production_companies;
+                    let last = last">
+                    {{ pc.name }}
+                    {{ !last ? ',' : '' }}
+                </p>
+            </div>
+            <!-- producers end -->
+
+        </div>
+
     </div>
 </div>
