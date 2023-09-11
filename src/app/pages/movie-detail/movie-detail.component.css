@@ -1,8 +1,8 @@
-img{
+.poster{
     width: 100%;
     height: auto;
 }
-p{
+p, span{
     color: white;
 }
 h1{
@@ -11,4 +11,8 @@ h1{
 }
 hr, h4 {
     color: #cb0d20;
+}
+.actorImg{
+    width: 10%;
+    height: auto;
 }

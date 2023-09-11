@@ -14,4 +14,5 @@ export class NavbarComponent {
   isSearchPage(): boolean {
     return this.router.url === '/search';
   }
+  
 }

@@ -1,9 +1,7 @@
 <div class="contain mt-5">
-    
     <div class="row p-5">
-        <button class="btn btn-primary" (click)="navigateBack()">Voltar para Pesquisa</button>
         <div class="col-xl-5 col-sm-5" *ngIf="getMovieDetailResult.backdrop_path || getMovieDetailResult.poster_path">
-            <img src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path}}" alt="">
+            <img class="poster" src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path}}" alt="">
         </div>
         <div class="col-xl-5 col-sm-5">
             <h1 class="mt-2 mb-2">{{getMovieDetailResult.original_title || getMovieDetailResult.title}}</h1>
@@ -45,6 +43,32 @@
                 </p>
             </div>
             <!-- producers end -->
+            <!-- Cast start -->
+            <h4 class="mt-3 mb-3">Cast:</h4>
+            <div class="row">
+                <ul *ngFor="let a of getMovieCastResult.cast">
+                    <li>
+                        <div class="">
+                            <img *ngIf="a.profile_path" class="col-2 actorImg" src="https://image.tmdb.org/t/p/original/{{a.profile_path}}">
+                            <img *ngIf="!a.profile_path" class="col-2 actorImg" src="https://placehold.co/600x400/EEE/31343C?font=oswald&text=NotFound">
+                            <span class="ps-4">{{a.character}}, {{a.name}}</span><br/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <h4 class="mt-3 mb-3">Crew:</h4>
+            <div class="row">
+                <ul *ngFor="let c of getMovieCastResult.crew">
+                    <li>
+                        <div class="">
+                            <img *ngIf="c.profile_path" class="col-2 actorImg" src="https://image.tmdb.org/t/p/original/{{c.profile_path}}">
+                            <img *ngIf="!c.profile_path" class="col-2 actorImg" src="https://placehold.co/600x400/EEE/31343C?font=oswald&text=NotFound">
+                            <span class="ps-4">{{c.name}}</span><br/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- Cast end -->
         </div>
 
     </div>
