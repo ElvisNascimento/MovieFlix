@@ -1,26 +1,47 @@
 <div class="contain-fluid mt-5 p-4">
     <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
         <div class="row">
-            <div class="col-10 col-lg-10 col-sm-10 ">
-                <input id="inputSearch" type="text" class="form-control" formControlName="movieName" placeholder="Search Movie here ...">
+            <div class="col-10 col-lg-10 col-sm-10 pe-2">
+                <input id="inputSearch" type="text" class="ps-4 form-control" formControlName="movieName"
+                    placeholder="Search Movie here ...">
             </div>
-            <div class="col-1 col-lg-1 col-sm-1">
-                <button class="btn btn-danger">Search</button>
+            <div class="col-2 col-lg-2 col-sm-2">
+                <button class="w-100 btn btn-danger">Search</button>
             </div>
+        </div>
+        <div class="mt-2 col-lg-1" data-bs-theme="dark">
+            <select class="btn btn-danger" [(ngModel)]="selectedGenreId" (change)="buscarFilmesPorGenero()">
+                <option value="" selected disabled>Search for Geners</option>
+                <option value="28">Action</option>
+                <option value="12">Adventure</option>
+                <option value="16">Animation</option>
+                <option value="35">Comedy</option>
+                <option value="99">Documentary</option>
+                <option value="878">Science Fiction</option>
+                <option value="53">Triller</option>
+            </select>
         </div>
     </form>
-
-    <div class="row mt-5">
-        <div class="col-lg-4" *ngFor="let s of searchResult">
-            <div class="col-lg-3 mt-4 mb-4" *ngIf="s.poster_path">
-                <img
-                src="https://image.tmdb.org/t/p/original/{{ s.poster_path || s.backdrop_path}}" alt=""
-                [routerLink]="['/movie', s.id]">
+    <div class="border row mt-5 ">
+        <div class="border d-flex col-lg-3 col-md-4 col-sm-6" *ngFor="let s of searchResult">
+            <div class="p-2" *ngIf="s.poster_path">
+                <img class="w-100" src="https://image.tmdb.org/t/p/original/{{ s.poster_path || s.backdrop_path}}"
+                    alt="" [routerLink]="['/movie', s.id]">
             </div>
-            <div class="col-lg-6 mt-4 mb-4">
+            <div class="col-6 p-2">
                 <h5>{{s.original_title || s.title}}</h5>
-                <p>{{s.overview}}</p>
             </div>
         </div>
-      </div>
+    </div>
+    <div class="border row mt-5 ">
+        <div class="border d-flex col-lg-3 col-md-4 col-sm-6" *ngFor="let s of searchResultByGenre">
+            <div class="p-2" *ngIf="s.poster_path">
+                <img class="w-100" src="https://image.tmdb.org/t/p/original/{{ s.poster_path || s.backdrop_path}}"
+                    alt="" [routerLink]="['/movie', s.id]">
+            </div>
+            <div class="col-6 p-2">
+                <h5>{{s.original_title || s.title}}</h5>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,7 +1,5 @@
-* {
-    margin: 0;
-    padding: 0;
-}
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
 
 body {
     font-family: 'Anton', sans-serif;

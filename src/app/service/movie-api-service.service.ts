@@ -21,6 +21,7 @@ export class MovieApiServiceService {
   popularApiData():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=1`);
   }
+
   //ProximasEstreiasApi
   popularApiData2():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/upcoming?api_key=${this.apikey}&page=1`);
@@ -30,10 +31,12 @@ export class MovieApiServiceService {
   nowPlayingApiData():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/now_playing?api_key=${this.apikey}`);
   }
-  //playing now
+  
+  //Toprated now
   topRateApiData():Observable<any> {
     return this.http.get(`${this.baseurl}/movie/top_rated?api_key=${this.apikey}`);
   }
+
   //movieDetail
   getMovieDetail(data:any):Observable<any>{
     return this.http.get(`${this.baseurl}/movie/${data}?api_key=${this.apikey}`);
@@ -41,7 +44,14 @@ export class MovieApiServiceService {
 
   //search
   getSearchMovie(data:any):Observable<any> {
+    console.log(data.gener);
+    
     return this.http.get(`${this.baseurl}/search/movie?api_key=${this.apikey}&query=${data.movieName}`);
+  }
+
+  //searchByGener
+  getSearchByGenerMovie(data:any):Observable<any> {
+    return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_geners${data.gener}`);
   }
 
   //getCast
