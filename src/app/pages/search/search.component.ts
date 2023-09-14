@@ -10,6 +10,7 @@ import { Filme } from './filme.model';
 })
 
 export class SearchComponent implements OnInit {
+  selectedGenreId: any;
 
   constructor(
     private service: MovieApiServiceService,
@@ -36,7 +37,7 @@ export class SearchComponent implements OnInit {
     const searchTerm = this.searchForm.get('movieName')?.value;
     localStorage.setItem('lastSearchTerm', searchTerm + '');
   
-    this.pageNumber = 1;
+    this.pageNumber = 1; // Reinicia a página para a primeira página ao realizar uma nova pesquisa
     this.performSearch();
   }
 
@@ -45,39 +46,41 @@ export class SearchComponent implements OnInit {
   }
 
   resultsByIdGenres(id: number) {
-    this.service.getSearchByGenerMovie(id).subscribe((result) => {
+    this.selectedGenreId = id;
+    this.service.getSearchByGenerMovie(id, this.pageNumber).subscribe((result) => {
       this.searchByGenerID = result.results;
-
+      this.totalPages = result.total_pages;
     });
   }
 
   previousPage() {
+    
     if (this.pageNumber > 1) {
       this.pageNumber--;
       this.performSearch();
     }
   }
-
+  
   nextPage() {
     if (this.pageNumber < this.totalPages) {
       this.pageNumber++;
       this.performSearch();
     }
   }
-
+  
   performSearch() {
-    this.service.getSearchMovie(this.searchForm.value, this.pageNumber).subscribe((result) => {
-      console.log(result, 'searchForm#');
-      this.searchResult = result.results;
-      this.totalPages = result.total_pages;
-      console.log(this.totalPages);
-      
-    })
-  }
+    const searchTerm = this.searchForm.get('movieName')?.value;
+    localStorage.setItem('lastSearchTerm', searchTerm + '');
 
-  resetPage() {
-    this.pageNumber = 1;
-    this.performSearch();
+    if (this.selectedGenreId) {
+      this.resultsByIdGenres(this.selectedGenreId);
+    } else {
+      this.service.getSearchMovie(this.searchForm.value, this.pageNumber).subscribe((result) => {
+        console.log(result, 'searchForm#');
+        this.searchResult = result.results;
+        this.totalPages = result.total_pages;
+      });
+    }
   }
 }
 

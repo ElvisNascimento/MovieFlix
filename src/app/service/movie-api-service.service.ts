@@ -59,7 +59,8 @@ export class MovieApiServiceService {
   }
 
   //searchByGener
-  getSearchByGenerMovie(id:number): Observable<any> {
-    return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_genres=${id}`);
+  getSearchByGenerMovie(id: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_genres=${id}&page=${pageNumber}`);
   }
+  
 }
