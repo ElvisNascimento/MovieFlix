@@ -1,66 +1,66 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieApiServiceService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  baseurl = "https://api.themoviedb.org/3";
-  apikey = "da4c2cb40d17cb988a203bc1c86336b1";
+  baseurl = environment.baseurl;
+  apikey = environment.apikey;
 
   //bannerApi
-  bannerApiData():Observable<any> {
+  bannerApiData(): Observable<any> {
     return this.http.get(`${this.baseurl}/trending/all/week?api_key=${this.apikey}`);
   }
 
   //PopularesApi
-  popularApiData():Observable<any> {
+  popularApiData(): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/popular?api_key=${this.apikey}&page=1`);
   }
 
   //ProximasEstreiasApi
-  popularApiData2():Observable<any> {
+  popularApiData2(): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/upcoming?api_key=${this.apikey}&page=1`);
   }
 
   //playing now
-  nowPlayingApiData():Observable<any> {
+  nowPlayingApiData(): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/now_playing?api_key=${this.apikey}`);
   }
-  
+
   //Toprated now
-  topRateApiData():Observable<any> {
+  topRateApiData(): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/top_rated?api_key=${this.apikey}`);
   }
 
   //movieDetail
-  getMovieDetail(data:any):Observable<any>{
+  getMovieDetail(data: any): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/${data}?api_key=${this.apikey}`);
   }
 
   //search
-  getSearchMovie(data:any):Observable<any> {
-    console.log(data.gener);
-    
-    return this.http.get(`${this.baseurl}/search/movie?api_key=${this.apikey}&query=${data.movieName}`);
-  }
-
-  //searchByGener
-  getSearchByGenerMovie(data:any):Observable<any> {
-    return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_geners${data.gener}`);
+  getSearchMovie(data: any, pageNumber: number): Observable<any> {
+    return this.http.get(`${this.baseurl}/search/movie?api_key=${this.apikey}&query=${data.movieName}&page=${pageNumber}`);
   }
 
   //getCast
-  getMovieCast(data:any):Observable<any>{
+  getMovieCast(data: any): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/${data}/credits?api_key=${this.apikey}`);
   }
 
   //getTrailer
-  getMovieTrailer(data:any):Observable<any>{
+  getMovieTrailer(data: any): Observable<any> {
     return this.http.get(`${this.baseurl}/movie/${data}/videos?api_key=${this.apikey}`);
   }
+
+  //searchByGener
+  getSearchByGenerMovie(id: number, pageNumber: number): Observable<any> {
+    return this.http.get(`${this.baseurl}/discover/movie?api_key=${this.apikey}&with_genres=${id}&page=${pageNumber}`);
+  }
+  
 }

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgSelectOption } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MovieApiServiceService } from 'src/app/service/movie-api-service.service';
 import { Filme } from './filme.model';
 
@@ -8,76 +8,79 @@ import { Filme } from './filme.model';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
+
 export class SearchComponent implements OnInit {
   selectedGenreId: any;
-  
+
   constructor(
-    private service:MovieApiServiceService,
+    private service: MovieApiServiceService,
     private el: ElementRef
-  ) {}
+  ) { }
 
-  searchResult:any;
-  
-  searchResultByGenre:any;
-  
-  selectedGenreIds: number[] = [];
+  searchResult: any;
 
-  pageNumber = 1;
+  searchByGenerID: any = [];
+
+  pageNumber = 1; // Inicializa a página como 1 (ou a página inicial desejada)
+
+  totalPages = 1; // Inicializa o total de páginas como 1 (ou o valor correto)
 
   ngOnInit(): void {
     this.focusSearch();
   }
-  
+
   searchForm = new FormGroup({
-    'movieName':new FormControl(null),
+    'movieName': new FormControl(null),
   });
 
   submitForm() {
     const searchTerm = this.searchForm.get('movieName')?.value;
-    localStorage.setItem('lastSearchTerm', searchTerm+'');
-
-    this.service.getSearchMovie(this.searchForm.value).subscribe((result)=>{
-      console.log(result,'seacheform#');
-      this.searchResult = result.results;
-    })
-  }
+    localStorage.setItem('lastSearchTerm', searchTerm + '');
   
+    this.pageNumber = 1; // Reinicia a página para a primeira página ao realizar uma nova pesquisa
+    this.performSearch();
+  }
+
   focusSearch() {
     this.el.nativeElement.querySelector('#inputSearch').focus();
   }
 
-  // buscarFilmesPorGenero(event: Event) {
-  //   const idGenero = (event.target as HTMLSelectElement).value;
-  //   if (idGenero) {
-  //     this.service.getSearchByGenerMovie({ gener: +idGenero, page: this.pageNumber })
-  //       .subscribe(data => {
-  //         const filmesFiltrados: Filme[] = data.results.filter((filme: Filme) => filme.genre_ids.includes(+idGenero));
-  //         this.searchResultByGenre = filmesFiltrados;
-  //       });
-  //   }
-  // }
+  resultsByIdGenres(id: number) {
+    this.selectedGenreId = id;
+    this.service.getSearchByGenerMovie(id, this.pageNumber).subscribe((result) => {
+      this.searchByGenerID = result.results;
+      this.totalPages = result.total_pages;
+    });
+  }
 
-  buscarFilmesPorGenero() {
-    if (this.selectedGenreId) {
-      this.buscarFilmesPaginado(this.selectedGenreId, 1, 50);
+  previousPage() {
+    
+    if (this.pageNumber > 1) {
+      this.pageNumber--;
+      this.performSearch();
     }
   }
   
-  buscarFilmesPaginado(idGenero: string, pagina: number, resultadosRestantes: number) {
-    if (resultadosRestantes <= 0) return;
+  nextPage() {
+    if (this.pageNumber < this.totalPages) {
+      this.pageNumber++;
+      this.performSearch();
+    }
+  }
   
-    this.service.getSearchByGenerMovie({ gener: +idGenero, page: pagina })
-      .subscribe(data => {
-        const filmesFiltrados: Filme[] = data.results.filter((filme: Filme) => filme.genre_ids.includes(+idGenero));
-        this.searchResultByGenre.push(...filmesFiltrados);
-  
-        const resultadosRecebidos = filmesFiltrados.length;
-        const resultadosAindaNecessarios = resultadosRestantes - resultadosRecebidos;
-  
-        if (resultadosAindaNecessarios > 0) {
-          this.buscarFilmesPaginado(idGenero, pagina + 1, resultadosAindaNecessarios);
-        }
+  performSearch() {
+    const searchTerm = this.searchForm.get('movieName')?.value;
+    localStorage.setItem('lastSearchTerm', searchTerm + '');
+
+    if (this.selectedGenreId) {
+      this.resultsByIdGenres(this.selectedGenreId);
+    } else {
+      this.service.getSearchMovie(this.searchForm.value, this.pageNumber).subscribe((result) => {
+        console.log(result, 'searchForm#');
+        this.searchResult = result.results;
+        this.totalPages = result.total_pages;
       });
+    }
   }
 }
 
