@@ -18,13 +18,11 @@ export class SearchComponent implements OnInit {
 
   searchResult: any;
 
-  searchResultByGenre: any[] = [];
+  searchByGenerID: any = [];
 
-  selectedGenreId: any;
+  pageNumber = 1; // Inicializa a página como 1 (ou a página inicial desejada)
 
-  selectedGenreIds: number[] = [];
-
-  pageNumber = 1;
+  totalPages = 1; // Inicializa o total de páginas como 1 (ou o valor correto)
 
   ngOnInit(): void {
     this.focusSearch();
@@ -37,29 +35,49 @@ export class SearchComponent implements OnInit {
   submitForm() {
     const searchTerm = this.searchForm.get('movieName')?.value;
     localStorage.setItem('lastSearchTerm', searchTerm + '');
-
-    this.service.getSearchMovie(this.searchForm.value).subscribe((result) => {
-      console.log(result, 'seacheform#');
-      this.searchResult = result.results;
-    })
+  
+    this.pageNumber = 1;
+    this.performSearch();
   }
 
   focusSearch() {
     this.el.nativeElement.querySelector('#inputSearch').focus();
   }
 
-  resultsByIdGenres() {
-    if (this.selectedGenreId) {
-      this.service.getSearchByGenerMovie({ gener: +this.selectedGenreId, page: 1 }).subscribe((result) => {
-        console.log(result, 'resultByGenerSearch');
-        // Faça o que precisar com os resultados aqui
-      });
-    }
-  }
-  setSelectedGenre(generId: any){
-    this.selectedGenreId = generId;
-    this.resultsByIdGenres();
+  resultsByIdGenres(id: number) {
+    this.service.getSearchByGenerMovie(id).subscribe((result) => {
+      this.searchByGenerID = result.results;
+
+    });
   }
 
+  previousPage() {
+    if (this.pageNumber > 1) {
+      this.pageNumber--;
+      this.performSearch();
+    }
+  }
+
+  nextPage() {
+    if (this.pageNumber < this.totalPages) {
+      this.pageNumber++;
+      this.performSearch();
+    }
+  }
+
+  performSearch() {
+    this.service.getSearchMovie(this.searchForm.value, this.pageNumber).subscribe((result) => {
+      console.log(result, 'searchForm#');
+      this.searchResult = result.results;
+      this.totalPages = result.total_pages;
+      console.log(this.totalPages);
+      
+    })
+  }
+
+  resetPage() {
+    this.pageNumber = 1;
+    this.performSearch();
+  }
 }
 
