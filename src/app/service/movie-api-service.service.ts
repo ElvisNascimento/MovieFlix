@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class MovieApiServiceService {
 
   constructor(private http:HttpClient) { }
 
-  baseurl = "https://api.themoviedb.org/3";
-  apikey = "da4c2cb40d17cb988a203bc1c86336b1";
+  baseurl = environment.baseurl;
+  apikey = environment.apikey;
 
   //bannerApi
   bannerApiData():Observable<any> {

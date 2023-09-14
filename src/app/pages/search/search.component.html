@@ -1,25 +1,36 @@
 <div class="contain-fluid mt-5 p-4">
     <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
         <div class="row">
-            <div class="col-10 col-lg-10 col-sm-10 pe-2">
-                <input id="inputSearch" type="text" class="ps-4 form-control" formControlName="movieName"
+            <div class="mb-1 col-lg-8 col-md-8 col-sm-8 col-12">
+                <input id="inputSearch" type="text" class="pe-2 ps-2 form-control" formControlName="movieName"
                     placeholder="Search Movie here ...">
             </div>
-            <div class="col-2 col-lg-2 col-sm-2">
+            <div class="mb-1 col-md-4 col-sm-4 col-12">
                 <button class="w-100 btn btn-danger">Search</button>
             </div>
         </div>
-        <div class="mt-2 col-lg-1" data-bs-theme="dark">
-            <select class="btn btn-danger" [(ngModel)]="selectedGenreId" (change)="buscarFilmesPorGenero()">
-                <option value="" selected disabled>Search for Geners</option>
-                <option value="28">Action</option>
-                <option value="12">Adventure</option>
-                <option value="16">Animation</option>
-                <option value="35">Comedy</option>
-                <option value="99">Documentary</option>
-                <option value="878">Science Fiction</option>
-                <option value="53">Triller</option>
-            </select>
+        <div class="row d-flex justify-content-center">
+            <div class=" col-4 d-flex-fill p-2">
+                <input type="radio" value="28" (click)="setSelectedGenre(28)"><span class="text-white ps-2"> Action </span>
+            </div>
+            <div class=" col-4 d-flex-grow-2 p-2">
+                <input type="radio" value="12" (click)="setSelectedGenre(12)"><span class="text-white ps-2"> Adventure </span>
+            </div>
+            <div class=" col-4 d-flex-fill p-2">
+                <input type="radio" value="16" (click)="setSelectedGenre(16)"><span class="text-white ps-2"> Animation </span>
+            </div>
+            <div class=" col-4 d-flex p-2">
+                <input type="radio" value="35" (click)="setSelectedGenre(35)"><span class="text-white ps-2"> Comedy </span>
+            </div>
+            <div class=" col-4 d-flex p-2">
+                <input type="radio" value="99" (click)="setSelectedGenre(99)"><span class="text-white ps-2"> Documentary </span>
+            </div>
+            <div class=" col-4 d-flex p-2">
+                <input type="radio" value="53" (click)="setSelectedGenre(53)"><span class="text-white ps-2"> Triller </span>
+            </div>
+            <div class=" col-12 d-flex p-2">
+                <input type="radio" value="878" (click)="setSelectedGenre(878)"><span class="text-white ps-2"> Science Fiction </span>
+            </div>
         </div>
     </form>
     <div class=" row mt-5 ">
@@ -33,8 +44,8 @@
             </div>
         </div>
     </div>
-    <div class="border row mt-5 ">
-        <div class="border d-flex col-lg-3 col-md-4 col-sm-6" *ngFor="let s of searchResultByGenre">
+    <div class=" row mt-5 ">
+        <div class=" d-flex col-lg-3 col-md-4 col-sm-6" *ngFor="let s of searchResultByGenre">
             <div class="p-2" *ngIf="s.poster_path">
                 <img class="w-100" src="https://image.tmdb.org/t/p/original/{{ s.poster_path || s.backdrop_path}}"
                     alt="" [routerLink]="['/movie', s.id]">
