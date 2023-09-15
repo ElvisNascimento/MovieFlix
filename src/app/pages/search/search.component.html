@@ -10,13 +10,23 @@
             </div>
         </div>
     </form>
-    <hr>
-    <div class="row m-1 d-flex justify-content-center align-items-center">
-        <button class="col-4 btn btn-danger" (click)="previousPage()">Página Anterior</button>
-        <span class="col-4 text-white">Página {{ pageNumber }} de {{ totalPages }}</span>
-        <button class="col-4 btn btn-danger" (click)="nextPage()">Próxima Página</button>
+    <div class="mb-1 d-flex justify-content-center align-items-center fixed-bottom">
+        <nav aria-label="...">
+            <ul class="pagination col-12">
+                <li class="page-item" [class.disabled]="pageNumber === 1">
+                    <button class="page-link" (click)="previousPage($event)">Previous</button>
+                </li>
+                <ng-container *ngFor="let page of getPages()">
+                    <li class="page-item" [class.active]="page === pageNumber">
+                        <button class="page-link" href="#" (click)="goToPage(page, $event)">{{ page }}</button>
+                    </li>
+                </ng-container>
+                <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                    <button class="page-link" (click)="nextPage($event)">Next</button>
+                </li>
+            </ul>
+        </nav>
     </div>
-    <hr>
     <div class="row d-flex justify-content-center">
         <div class=" col-4 d-flex-fill p-2">
             <input type="radio" name="gener" value="28" (click)="resultsByIdGenres(28)">

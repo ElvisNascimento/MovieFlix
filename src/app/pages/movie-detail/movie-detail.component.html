@@ -1,30 +1,59 @@
-<div class="container mt-5">
-    <div class="row p-3"> <!-- Alterei a classe p-5 para p-3 para diminuir o espaçamento -->
-        <div class="col-xl-5 col-md-6 col-sm-12">
-            <!-- Adicionei col-md-6 e col-sm-12 para tornar a imagem responsiva -->
-            <img class="w-100" src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path }}" alt="">
-            <!-- Adicionei a classe w-100 para que a imagem ocupe 100% da largura do container -->
+<div class="container ">
+    <!-- Datail Page start -->
+    <div class="row pt-2 rounded"
+        [style.background]="'linear-gradient(to top, rgba(0, 0, 0, 1)15%, rgba(255, 0, 0, 0) 60%), url(https://image.tmdb.org/t/p/original/' + getMovieDetailResult.poster_path + ') no-repeat center top'">
+
+        <div class=" col-xxl-3 col-xl-3 col-lg-3 col-md-3 d-none d-sm-flex justify-content-center align-items-center">
+            <img class="w-75 rounded" src="https://image.tmdb.org/t/p/original/{{ getMovieDetailResult.poster_path }}"
+                alt="">
         </div>
-        <div class="col-xl-7 col-md-6 col-sm-12"> <!-- Adicionei col-md-6 e col-sm-12 para ajustar o layout -->
+        <div class=" col-xxl-9 col-xl-9 col-lg-9 col-md-9 col-sm-12">
             <h1 class="mt-2 mb-2">{{ getMovieDetailResult.original_title || getMovieDetailResult.title }}</h1>
+            <div class="d-inline-flex align-items-baseline">
+                <h5 class="pe-2">Data de Lançamento:</h5>
+                <p class="pe-2">{{ getMovieDetailResult.release_date | date:'dd/MM/yyyy' }}</p>
+                <h5 class="pe-2">Score:</h5>
+                <p class="pe-2">{{ getRoundedVoteAverage()}}</p>
 
-            <h4 class="mt-3 mb-3 p-3">Synopsis:</h4>
-            <p class="mt-3 mb-3 p-3">{{ getMovieDetailResult.overview }}</p>
+                <div>
+                    <ng-container *ngFor="let star of getStars(getRoundedVoteAverage())">
+                      <i class="fa fa-star fa-xl"
+                        [ngClass]="{'fa-regular': star >= getRoundedVoteAverage()}"
+                        style="color: #dd9c2c;">
+                      </i>
+                    </ng-container>
+                  </div>
+                  
 
-            <button class="btn btn-danger mt-3 ms-3 p-3" (click)="abrirVideo()">Assistir Trailer</button>
-            <div class="alert alert-info mt-3" *ngIf="!getMovieTrailerResult">Não há vídeo disponível no momento.</div>
+
+            </div>
+
+
+            <h4 class="">Synopsis:</h4>
+            <p class="">{{ getMovieDetailResult.overview }}</p>
+            <div id="containerVideo">
+
+            </div>
+
+            <button class="btn btn-danger mb-2 mt-2 " (click)="abrirVideo()">Assistir Trailer</button>
+
+
         </div>
+        <div class="alert alert-info mt-3" *ngIf="!getMovieTrailerResult">Não há vídeo disponível no momento.</div>
+
+    </div>
+
+    <div class="row">
         <div class="col-12">
-            <!-- Home Page start -->
             <hr>
-            <h4 class="mt-3 mb-3 p-3">Home Page:</h4>
+            <h4 class="mt-3 mb-3">Home Page:</h4>
             <div class="d-sm-flex ">
                 <a href="{{getMovieDetailResult.homepage}}">{{getMovieDetailResult.homepage}}</a>
             </div>
-            <!-- Home Page end -->
+
             <hr>
             <!-- Gener start -->
-            <h4 class="mt-3 mb-3 p-3">Gener:</h4>
+            <h4 class="mt-3 mb-3 ">Gener:</h4>
             <div class="d-flex d-sm-flex">
                 <p *ngFor="let genre of getMovieDetailResult.genres;
                 let last = last">
@@ -35,7 +64,7 @@
             <!-- Gener end -->
             <hr>
             <!-- producers start -->
-            <h4 class="mt-3 mb-3 p-3">Producers:</h4>
+            <h4 class="mt-3 mb-3 ">Producers:</h4>
             <div class="d-sm-flex ">
                 <div></div>
                 <p *ngFor="let pc of getMovieDetailResult.production_companies;
@@ -47,17 +76,17 @@
             <!-- producers end -->
             <hr>
             <!-- Cast start -->
-            <div class="mt-4 p-4">
+            <div class="mt-4">
                 <h4>Cast:</h4>
                 <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 " *ngFor="let a of getMovieCastResult.cast">
+                    <div class="col-lg-2 col-md-4 col-sm-6 col-6 " *ngFor="let a of getMovieCastResult.cast">
                         <div class="row mt-2 mb-2">
-                            <div class="col-lg-6 col-md-6 col-sm-4">
-                                <img *ngIf="a.profile_path" class="col-2 actorImg"
+                            <div class="col-lg-12 col-md-4 col-sm-6">
+                                <img *ngIf="a.profile_path" class="col-2 actorImg rounded"
                                     src="https://image.tmdb.org/t/p/original/{{a.profile_path}}">
                                 <img *ngIf="!a.profile_path" class="col-2 actorImg"
                                     src="https://placehold.co/600x600/EEE/31343C?font=oswald&text=NotFound">
-                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                <div class="col-lg-4 col-md-4 col-sm-6">
                                     <h5 class="text-white">{{a.name}}</h5>
                                     <p class="text-secondary-emphasis">{{a.character}}</p>
                                 </div>
@@ -69,18 +98,19 @@
             <!-- Cast end -->
             <hr>
             <!-- Crew start -->
-            <div class="mt-4 p-4"></div>
-            <h4 class="">Crew:</h4>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6 col-6" *ngFor="let c of getMovieCastResult.crew">
-                    <div class="row mt-2 mb-2">
-                        <div class="col-lg-6 col-md-6 col-sm-4">
-                            <img *ngIf="c.profile_path" class="col-2 actorImg"
-                                src="https://image.tmdb.org/t/p/original/{{c.profile_path}}">
-                            <img *ngIf="!c.profile_path" class="col-2 actorImg"
-                                src="https://placehold.co/600x400/EEE/31343C?font=oswald&text=NotFound">
-                            <div class="col-lg-2 col-md-4 col-sm-6">
-                                <h5 class="text-white">{{c.name}}</h5>
+            <div class="mt-4">
+                <h4 class="">Crew:</h4>
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6" *ngFor="let c of getMovieCastResult.crew">
+                        <div class="row mt-2 mb-2">
+                            <div class="col-lg-6 col-md-6 col-sm-4">
+                                <img *ngIf="c.profile_path" class="col-2 actorImg rounded"
+                                    src="https://image.tmdb.org/t/p/original/{{c.profile_path}}">
+                                <img *ngIf="!c.profile_path" class="col-2 actorImg"
+                                    src="https://placehold.co/600x400/EEE/31343C?font=oswald&text=NotFound">
+                                <div class="col-lg-2 col-md-4 col-sm-6">
+                                    <h5 class="text-white">{{c.name}}</h5>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -89,4 +119,5 @@
             <!-- Crew end -->
         </div>
     </div>
+    <!-- Datail Page end -->
 </div>

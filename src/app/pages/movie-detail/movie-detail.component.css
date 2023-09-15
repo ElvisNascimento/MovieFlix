@@ -9,10 +9,13 @@ h1{
     color: white;
     font-weight: bold;
 }
-hr, h4 {
+hr, h4, h5 {
     color: #cb0d20;
 }
 .actorImg{
     width: 100%;
     height: auto;
+}
+.container{
+    margin-top: 60px;
 }

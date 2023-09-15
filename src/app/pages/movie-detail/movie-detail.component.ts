@@ -19,6 +19,8 @@ export class MovieDetailComponent implements OnInit {
 
   trailerUrl?: string;
 
+  videUrl: any;
+
 
   ngOnInit(): void {
 
@@ -66,10 +68,36 @@ export class MovieDetailComponent implements OnInit {
 
   abrirVideo() {
     if (this.getMovieTrailerResult) {
-      window.open(this.getMovieTrailerResult, '_parent'); // Abre em uma nova aba
+      const videoUrl = this.getMovieTrailerResult + '?autoplay=1'; // Adicionando o parâmetro autoplay
+  
+      const iframe = document.createElement('iframe');
+      iframe.width = '560';
+      iframe.height = '315';
+      iframe.src = videoUrl;
+      iframe.title = 'YouTube video player';
+      iframe.frameBorder = '0';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+  
+      const container = document.getElementById('containerVideo');
+  
+      if (container !== null) {
+        container.innerHTML = '';
+        container.appendChild(iframe);
+      } else {
+        console.error('Elemento com o ID especificado não foi encontrado.');
+      }
     }
   }
+  
 
+  getStars(voteAverage: number): number[] {
+    return Array.from({ length: 10 }, (_, index) => index);
+  }
+  getRoundedVoteAverage(): number {
+    return Math.floor(this.getMovieDetailResult.vote_average);
+  }
+  
   getCast(id: any) {
     this.service.getMovieCast(id).subscribe((result) => {
       console.log(result, 'getCastResult##');

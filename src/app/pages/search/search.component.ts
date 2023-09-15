@@ -21,9 +21,11 @@ export class SearchComponent implements OnInit {
 
   searchByGenerID: any = [];
 
-  pageNumber = 1; // Inicializa a página como 1 (ou a página inicial desejada)
-
-  totalPages = 1; // Inicializa o total de páginas como 1 (ou o valor correto)
+  //pagination
+  pageNumber = 1;
+  totalPages = 1;
+  visiblePages: number = 3;
+  selectedPage: number = 0;
 
   ngOnInit(): void {
     this.focusSearch();
@@ -36,7 +38,7 @@ export class SearchComponent implements OnInit {
   submitForm() {
     const searchTerm = this.searchForm.get('movieName')?.value;
     localStorage.setItem('lastSearchTerm', searchTerm + '');
-  
+
     this.pageNumber = 1; // Reinicia a página para a primeira página ao realizar uma nova pesquisa
     this.performSearch();
   }
@@ -53,21 +55,31 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  previousPage() {
-    
+  goToPage(page: number, event: Event) {
+    event.preventDefault(); // Impede o comportamento padrão do link
+    if (page >= 1 && page <= this.totalPages && page !== this.pageNumber) {
+      this.pageNumber = page;
+      this.performSearch();
+    }
+  }
+  
+  previousPage(event: Event) {
+    event.preventDefault();
     if (this.pageNumber > 1) {
       this.pageNumber--;
       this.performSearch();
     }
   }
   
-  nextPage() {
+  nextPage(event: Event) {
+    event.preventDefault();
     if (this.pageNumber < this.totalPages) {
       this.pageNumber++;
       this.performSearch();
     }
   }
   
+
   performSearch() {
     const searchTerm = this.searchForm.get('movieName')?.value;
     localStorage.setItem('lastSearchTerm', searchTerm + '');
@@ -81,6 +93,13 @@ export class SearchComponent implements OnInit {
         this.totalPages = result.total_pages;
       });
     }
+  }
+  
+  getPages(): number[] {
+    const startPage = Math.max(1, this.pageNumber - Math.floor(this.visiblePages / 2));
+    const endPage = Math.min(this.totalPages, startPage + this.visiblePages - 1);
+  
+    return Array(endPage - startPage + 1).fill(0).map((x, i) => startPage + i);
   }
 }
 
