@@ -6,3 +6,8 @@ p{
     font-size: small;
     color: white;
 }
+.page-link {
+  background-color: rgb(109, 11, 11);
+  border: none;
+  color: white;
+}

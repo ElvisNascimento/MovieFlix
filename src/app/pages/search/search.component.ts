@@ -39,7 +39,7 @@ export class SearchComponent implements OnInit {
     const searchTerm = this.searchForm.get('movieName')?.value;
     localStorage.setItem('lastSearchTerm', searchTerm + '');
 
-    this.pageNumber = 1; // Reinicia a página para a primeira página ao realizar uma nova pesquisa
+    this.pageNumber = 1;
     this.performSearch();
   }
 
@@ -56,13 +56,13 @@ export class SearchComponent implements OnInit {
   }
 
   goToPage(page: number, event: Event) {
-    event.preventDefault(); // Impede o comportamento padrão do link
+    event.preventDefault();
     if (page >= 1 && page <= this.totalPages && page !== this.pageNumber) {
       this.pageNumber = page;
       this.performSearch();
     }
   }
-  
+
   previousPage(event: Event) {
     event.preventDefault();
     if (this.pageNumber > 1) {
@@ -70,7 +70,7 @@ export class SearchComponent implements OnInit {
       this.performSearch();
     }
   }
-  
+
   nextPage(event: Event) {
     event.preventDefault();
     if (this.pageNumber < this.totalPages) {
@@ -78,7 +78,7 @@ export class SearchComponent implements OnInit {
       this.performSearch();
     }
   }
-  
+
 
   performSearch() {
     const searchTerm = this.searchForm.get('movieName')?.value;
@@ -94,11 +94,11 @@ export class SearchComponent implements OnInit {
       });
     }
   }
-  
+
   getPages(): number[] {
     const startPage = Math.max(1, this.pageNumber - Math.floor(this.visiblePages / 2));
     const endPage = Math.min(this.totalPages, startPage + this.visiblePages - 1);
-  
+
     return Array(endPage - startPage + 1).fill(0).map((x, i) => startPage + i);
   }
 }

@@ -14,52 +14,52 @@
         <nav aria-label="...">
             <ul class="pagination col-12">
                 <li class="page-item" [class.disabled]="pageNumber === 1">
-                    <button class="page-link" (click)="previousPage($event)">Previous</button>
+                    <button class=" btn btn-danger page-link" (click)="previousPage($event)">Previous</button>
                 </li>
                 <ng-container *ngFor="let page of getPages()">
                     <li class="page-item" [class.active]="page === pageNumber">
-                        <button class="page-link" href="#" (click)="goToPage(page, $event)">{{ page }}</button>
+                        <button class="btn btn-danger page-link" href="#" (click)="goToPage(page, $event)">{{ page }}</button>
                     </li>
                 </ng-container>
                 <li class="page-item" [class.disabled]="pageNumber === totalPages">
-                    <button class="page-link" (click)="nextPage($event)">Next</button>
+                    <button class="btn btn-danger page-link" (click)="nextPage($event)">Next</button>
                 </li>
             </ul>
         </nav>
     </div>
     <div class="row d-flex justify-content-center">
         <div class=" col-4 d-flex-fill p-2">
-            <input type="radio" name="gener" value="28" (click)="resultsByIdGenres(28)">
+            <input type="checkbox" name="gener" value="28" (click)="resultsByIdGenres(28)">
             <span class="text-white ps-2">
                 Action </span>
         </div>
         <div class=" col-4 d-flex-grow-2 p-2">
-            <input type="radio" name="gener" value="12" (click)="resultsByIdGenres(12)">
+            <input type="checkbox" name="gener" value="12" (click)="resultsByIdGenres(12)">
             <span class="text-white ps-2">
                 Adventure </span>
         </div>
         <div class=" col-4 d-flex-fill p-2">
-            <input type="radio" name="gener" value="16" (click)="resultsByIdGenres(16)">
+            <input type="checkbox" name="gener" value="16" (click)="resultsByIdGenres(16)">
             <span class="text-white ps-2">
                 Animation </span>
         </div>
         <div class=" col-4 d-flex p-2">
-            <input type="radio" name="gener" value="35" (click)="resultsByIdGenres(35)">
+            <input type="checkbox" name="gener" value="35" (click)="resultsByIdGenres(35)">
             <span class="text-white ps-2">
                 Comedy </span>
         </div>
         <div class=" col-4 d-flex p-2">
-            <input type="radio" name="gener" value="99" (click)="resultsByIdGenres(99)">
+            <input type="checkbox" name="gener" value="99" (click)="resultsByIdGenres(99)">
             <span class="text-white ps-2">
                 Documentary </span>
         </div>
         <div class=" col-4 d-flex p-2">
-            <input type="radio" name="gener" value="53" (click)="resultsByIdGenres(53)">
+            <input type="checkbox" name="gener" value="53" (click)="resultsByIdGenres(53)">
             <span class="text-white ps-2">
                 Triller </span>
         </div>
         <div class=" col-12 d-flex p-2">
-            <input type="radio" name="gener" value="878" (click)="resultsByIdGenres(878)">
+            <input type="checkbox" name="gener" value="878" (click)="resultsByIdGenres(878)">
             <span class="text-white ps-2"> Science Fiction </span>
         </div>
     </div>
@@ -86,3 +86,4 @@
         </div>
     </div>
 </div>
+
